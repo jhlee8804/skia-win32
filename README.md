@@ -33,6 +33,53 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
     >python gyp_skia -Dskia_shared_lib=1
     >SET "GYP_GENERATORS="
     
+
+#####5. Add macros('SKIA_IMPLEMENTATION, SKIA_DLL') to follow projects.
+    >codec
+    >core
+    >effects
+    >ports
+    >skgpu (if set GYP_DEFINES='skia_gpu=1')
+    >skia_lib
+
+
+#####6. Change Project Options.
+    C/C++ - Runtime Library: "Multi-threaded Debug (/MTd), Multi-threaded (/MT)"
+    C/C++ - Treat Warnings As Errors: NO(/WX-)
     
-#####5. Build the skia_lib project.
+    >codec
+    >codec_android
+    >core
+    >effect
+    >images
+    >libetc1
+    >libSkKTX
+    >opts
+    >opts_avx
+    >opts_sse41
+    >opts_ssse3
+    >ports
+    >skgpu
+    >skia_lib
+    >sfnt
+    >utils
+
+
+#####6. Editing follow codes in "SkPreConfig."
+    #if defined(SKIA_DLL)
+        #if defined(SK_BUILD_FOR_WIN32)                                 <<<<<<<<<<<<<<<<<<<
+            #if SKIA_IMPLEMENTATION
+                #define SK_API __declspec(dllexport)
+            #else
+                #define SK_API __declspec(dllimport)
+            #endif
+        #else
+            #define SK_API __attribute__((visibility("default")))
+        #endif
+    #else
+        #define SK_API
+    #endif
+
+    
+#####7. Build the skia_lib project !!!
     
