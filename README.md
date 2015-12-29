@@ -29,7 +29,6 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
 #####4. Setting Enviroment Variables in Windows CMD.EXE (https://skia.org/user/tips#gypdefines)
     >cd %SKIA_CHECKOUT_DIR%
     >SET "GYP_GENERATORS=msvs"
-    >SET "GYP_DEFINES='skia_gpu=0 skia_pdf=0'"
     >python gyp_skia -Dskia_shared_lib=1
     >SET "GYP_GENERATORS="
     
