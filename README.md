@@ -63,8 +63,14 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
     >sfnt
     >utils
 
+    and link above projects with skia_lib project.
+    
 
-#####6. Editing follow codes in "SkPreConfig."
+#####6. Set 'True' to 'Linker - General - Use Library Dependency Inputs'
+    >skia_lib
+
+
+#####7. Editing follow codes in "SkPreConfig."
     #if defined(SKIA_DLL)
         #if defined(SK_BUILD_FOR_WIN32)                                 <<<<<<<<<<<<<<<<<<<
             #if SKIA_IMPLEMENTATION
