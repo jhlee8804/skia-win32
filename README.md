@@ -59,6 +59,17 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
                 ...
                 },
             ...
+        },
+        'conditions' : [
+            ...
+            [ 'skia_shared_lib', {
+                'defines': [
+                    'SKIA_DLL',
+                    'SKIA_IMPLEMENTATION=1',
+                ],
+            }],
+            ...
+        ],
 
 
 #####6. Turn Off 'skia_warnings_as_error' in /gyp/common_variables.gypi
