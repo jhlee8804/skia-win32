@@ -87,6 +87,7 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
     ports
     skgpu (if set GYP_DEFINES='skia_gpu=1')
     skia_lib
+    utils
     
 
 #####9. Set 'True' to 'Linker - General - Use Library Dependency Inputs'
