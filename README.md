@@ -91,21 +91,11 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
     $ SET "GYP_GENERATORS="
     
 
-#####8. Add Macros('SKIA_IMPLEMENTATION, SKIA_DLL') to follow projects.
-    codec
-    core
-    effects
-    ports
-    skgpu (if set GYP_DEFINES='skia_gpu=1')
-    skia_lib
-    utils
-    
-
-#####9. Set 'True' to 'Linker - General - Use Library Dependency Inputs'
+#####8. Set 'True' to 'Linker - General - Use Library Dependency Inputs'
     skia_lib
 
 
-#####10. Editing follow codes in "include/core/SkPreConfig."
+#####9. Editing follow codes in "include/core/SkPreConfig."
     #if defined(SKIA_DLL)
         //#if defined(WIN32)
         #if defined(SK_BUILD_FOR_WIN32)                                 <<<<<<<<<<<<<<<<<<<
@@ -122,5 +112,5 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
     #endif
 
     
-#####7. Build the skia_lib project !!!
+#####10. Build the skia_lib project !!!
     
