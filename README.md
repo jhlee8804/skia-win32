@@ -1,4 +1,4 @@
-# skia-build-dll
+# skia-build-dll (by jhlee)
 Build google skia library as dll.
 
 
@@ -26,7 +26,13 @@ Three Gyp generators are used on Windows:
 To choose which ones to use, set the GYP_GENERATORS environment variable to a comma-delimited list of generators before running sync-and-gyp. The default value for GYP_GENERATORS is ninja,msvs-ninja. For example to enable the ninja and msvs generators:
 
 
-#####4. Modify RuntimeLibrary Option in /gyp/common_conditions.gypi.
+#####4.  Modify Build Params in /bin/sync-and-gyp
+    // add '-Dskia_shared_lib=1'
+    //subprocess.call(['python', './gyp_skia',], env=env)
+    subprocess.call(['python', './gyp_skia', '-Dskia_shared_lib=1'], env=env)
+    
+
+#####5. Modify RuntimeLibrary Option in /gyp/common_conditions.gypi.
     [ 'skia_os == "win"',
         ...
         'configurations': {
@@ -45,9 +51,9 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
             'Release': {
                 'msvs_settings': {
                     'VCCLCompilerTool': {
-                        // RuntimeLibrary 3 -> 1
-                        #'RuntimeLibrary': '3',         # rtMultiThreadedDebugDLL (/MDd)
-                        'RuntimeLibrary': '1',  # /MTd
+                        // RuntimeLibrary 2 -> 0
+                        #'RuntimeLibrary': '2',              # rtMultiThreadedDLL (/MD)
+                        'RuntimeLibrary': '0',  # /MT
                         ...
                     },
                 ...
@@ -55,51 +61,39 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
             ...
 
 
-#####5. Setting Enviroment Variables in Windows CMD.EXE (https://skia.org/user/tips#gypdefines)
+#####6. Turn Off 'skia_warnings_as_error' in /gyp/common_variables.gypi
+    'conditions': [
+        [ 'skia_os in ["mac", "linux", "freebsd", "openbsd", "solaris", "android", "win"] '
+                'and skia_android_framework == 0', {
+            //'skia_warnings_as_errors%': 1,
+            'skia_warnings_as_errors%': 0,
+        }, {
+            'skia_warnings_as_errors%': 0,
+        }],
+
+#####7. Setting Enviroment Variables in Windows CMD.EXE (https://skia.org/user/tips#gypdefines)
     $ cd %SKIA_CHECKOUT_DIR%
     $ SET "GYP_GENERATORS=msvs"
+    $ SET "GYP_DEFINES=UNICODE _UNICODE"
     $ python bin/sync-and-gyp
+    $ SET "GYP_DEFINES="
     $ SET "GYP_GENERATORS="
     
 
-#####6. Add Macros('SKIA_IMPLEMENTATION, SKIA_DLL') to follow projects.
+#####8. Add Macros('SKIA_IMPLEMENTATION, SKIA_DLL') to follow projects.
     codec
     core
     effects
     ports
     skgpu (if set GYP_DEFINES='skia_gpu=1')
     skia_lib
-
-
-#####7. Change Project Optionss.
-    C/C++ - Runtime Library: "Multi-threaded Debug (/MTd), Multi-threaded (/MT)"
-    C/C++ - Treat Warnings As Errors: NO(/WX-)
-    
-    codec
-    codec_android
-    core
-    effect
-    images
-    libetc1
-    libSkKTX
-    opts
-    opts_avx
-    opts_sse41
-    opts_ssse3
-    ports
-    skgpu
-    skia_lib
-    sfnt
-    utils
-
-    and link above projects with skia_lib project.
     
 
-#####8. Set 'True' to 'Linker - General - Use Library Dependency Inputs'
+#####9. Set 'True' to 'Linker - General - Use Library Dependency Inputs'
     skia_lib
 
 
-#####9. Editing follow codes in "SkPreConfig."
+#####10. Editing follow codes in "SkPreConfig."
     #if defined(SKIA_DLL)
         //#if defined(WIN32)
         #if defined(SK_BUILD_FOR_WIN32)                                 <<<<<<<<<<<<<<<<<<<
