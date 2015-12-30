@@ -74,9 +74,7 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
 #####7. Setting Enviroment Variables in Windows CMD.EXE (https://skia.org/user/tips#gypdefines)
     $ cd %SKIA_CHECKOUT_DIR%
     $ SET "GYP_GENERATORS=msvs"
-    $ SET "GYP_DEFINES=UNICODE _UNICODE"
     $ python bin/sync-and-gyp
-    $ SET "GYP_DEFINES="
     $ SET "GYP_GENERATORS="
     
 
