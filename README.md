@@ -63,6 +63,7 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
         },
         'conditions' : [
             ...
+            // add follow coditions
             [ 'skia_shared_lib', {
                 'defines': [
                     'SKIA_DLL',
