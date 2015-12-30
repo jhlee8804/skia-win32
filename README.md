@@ -92,7 +92,7 @@ To choose which ones to use, set the GYP_GENERATORS environment variable to a co
     skia_lib
 
 
-#####10. Editing follow codes in "SkPreConfig."
+#####10. Editing follow codes in "include/core/SkPreConfig."
     #if defined(SKIA_DLL)
         //#if defined(WIN32)
         #if defined(SK_BUILD_FOR_WIN32)                                 <<<<<<<<<<<<<<<<<<<
