@@ -1,4 +1,4 @@
-# skia-build-dll (by jhlee)
+# skia-build-dll
 Build google skia library as dll.
 
 
