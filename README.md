@@ -1,4 +1,4 @@
-# skia-build-dll
+# skia-win32
 Build google skia library as dll.
 
 
@@ -23,7 +23,7 @@ Three Gyp generators are used on Windows:
                   Visual-Studio-compatible project files that still ultimately build using ninja
     - msvs: Use Visual Studio’s own (slower) build system
     
-To choose which ones to use, set the GYP_GENERATORS environment variable to a comma-delimited list of generators before running sync-and-gyp. The default value for GYP_GENERATORS is ninja,msvs-ninja. For example to enable the ninja and msvs generators:
+To choose which ones to use, set the `GYP_GENERATORS` environment variable to a comma-delimited list of generators before running sync-and-gyp. The default value for `GYP_GENERATORS` is ninja, msvs-ninja. For example to enable the ninja and msvs generators:
 
 
 ### 4.  Modify Build Params in /bin/sync-and-gyp
